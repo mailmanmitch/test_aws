@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { API } from 'aws-amplify';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { listNotes } from './graphql/queries';
+import { listNotes, getNote } from './graphql/queries';
 import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from './graphql/mutations';
 import { Storage } from 'aws-amplify';
 import Slider from "react-slick";
@@ -11,20 +11,23 @@ import abs from './assets/abs.jpeg';
 import Image from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import * as queries from './graphql/queries';
 const initialFormState = { name: '', description: '' }
 
 function App() {
   const [notes, setNotes] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
-
+  
   var settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
+    height: 500,
     adaptiveHeight: false,
-    variableWidth: true,
+    variableWidth: false,
+    centerMode: true,
   };
 
   useEffect(() => {
@@ -42,6 +45,7 @@ function App() {
       return note;
     }))
     setNotes(apiData.data.listNotes.items);
+
   }
 
   async function createNote() {
@@ -68,19 +72,31 @@ function App() {
     await Storage.put(file.name, file);
     fetchNotes();
   }
+  /*
+
+          <div  style={{height: 200, width: 200}}>
+            <img src={cat} alt="cat"/>
+          </div>
+          <div  style={{height: 200, width: 200}}>
+            <img src={abs} alt="abs"/>
+          </div>
+
+  */
 
   return (
     <div className="App">
       <h1>My Pretty GF :)</h1>
-
-      <div style={{display: "block"}}>
+      
+      <div style={{display: "block", marginBottom: 30}}>
         <Slider {...settings}>
-          <div>
-            <img src={cat} alt="cat" style={{height: 200, width: 200}}/>
-          </div>
-          <div>
-            <img src={abs} alt="abs" style={{height: 200, width: 200}}/>
-          </div>
+          {
+            notes.map(note =>
+              (
+                <div >
+                  {note.image && <img src={note.image} style={{height: 500}} />}
+                </div>
+              ))
+          }
         </Slider>
       </div>
       <input
@@ -98,7 +114,14 @@ function App() {
       onChange={onChange}
       />
       <button onClick={createNote}>Create Note</button>
-      <div style={{marginBottom: 30}}>
+      
+      <AmplifySignOut />
+    </div>
+  );
+}
+
+/*
+<div style={{marginBottom: 30}}>
       {
         notes.map(note => (
           <div key={note.id || note.name}>
@@ -112,9 +135,5 @@ function App() {
         ))
       }
       </div>
-      <AmplifySignOut />
-    </div>
-  );
-}
-
+      */
 export default withAuthenticator(App);

@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+.slick-prev {
+  left: 3% !important;
+  z-index: 1;
+  background: pink;
+}
+.slick-next {
+  right: 3% !important;
+  z-index: 1;
+}
+
+.slick-slide {
+  height: auto;
+  background: pink;
+}
+.slick-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
