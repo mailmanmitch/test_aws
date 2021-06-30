@@ -11,9 +11,11 @@
     "carousel": "0.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-pro-sidebar": "^0.6.0",
     "react-responsive-carousel": "^3.2.18",
     "react-scripts": "4.0.3",
     "react-slick": "^0.28.1",
+    "reactjs-popup": "^2.0.4",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^1.1.2"
   },
