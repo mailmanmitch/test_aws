@@ -6,17 +6,12 @@ import { listNotes, getNote } from './graphql/queries';
 import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from './graphql/mutations';
 import { Storage } from 'aws-amplify';
 import Slider from "react-slick";
-import cat from './assets/cat.jpeg';
-import abs from './assets/abs.jpeg';
-import Image from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import * as queries from './graphql/queries';
-import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import 'react-pro-sidebar/dist/css/styles.css';
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
+import "./components/SideBar/Sidebar";
+import Sidebar from './components/SideBar/Sidebar';
 import AddImagePopup from './components/AddImagePopup/AddImagePopup';
+
 const initialFormState = { name: '', description: '' }
 
 function App() {
@@ -82,6 +77,10 @@ function App() {
   const toggleAddImagePopup = () => {
     setIsOpen(!isOpen);
   }
+  
+  const toggelSideBar = () => {
+
+  }
 
   /*
 
@@ -96,33 +95,11 @@ function App() {
 
   return (
     <div className="App">
-      <ProSidebar onToggle style={{position: "absolute",
-        top: 0,
-        bottom: 0,
-        float: "left",
-        width: "20%",
-        backgroundColor: "pink"}}>
-        <Menu iconShape="square">
-          <MenuItem onClick={toggleAddImagePopup}>Add Image
-          </MenuItem>
-          <MenuItem>Delete Image</MenuItem>
-          <MenuItem>      
-            <AmplifySignOut />
-          </MenuItem>
-        </Menu>
-      </ProSidebar>
       <h1>My Pretty GF :)</h1>
-      {isOpen && <AddImagePopup
-              content={<>
-                <b>Design your Popup</b>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <button>Test button</button>
-              </>}
-              handleClose={toggleAddImagePopup}
-            />}
+      <Sidebar></Sidebar>
       <div style={{display: "block",
                   float: "right",
-                  width: "80%"}}>
+                  width: "100%"}}>
         <Slider {...settings}>
           {
             notes.map(note =>

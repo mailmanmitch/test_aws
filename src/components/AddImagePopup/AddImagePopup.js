@@ -1,6 +1,7 @@
 import React from "../../../node_modules/react";
 
 const AddImagePopup = props => {
+    console.log(props.content);
     return (
         <div className="popup-box">
       <div className="box">
