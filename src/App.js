@@ -18,6 +18,7 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
   const [isOpen, setIsOpen] = useState(false);
+  const [isPopupDisplayed, setIsPopupDisplayed] = useState(false);
 
   var settings = {
     dots: true,
@@ -81,22 +82,25 @@ function App() {
   const toggelSideBar = () => {
 
   }
+  const updatePopup = () => {
+    var popupState = !isPopupDisplayed;
+    setIsPopupDisplayed(popupState);
+}
+const createNewNote = () => {
 
-  /*
-
-          <div  style={{height: 200, width: 200}}>
-            <img src={cat} alt="cat"/>
-          </div>
-          <div  style={{height: 200, width: 200}}>
-            <img src={abs} alt="abs"/>
-          </div>
-
-  */
+}
 
   return (
+
     <div className="App">
+    { isPopupDisplayed && 
+      <AddImagePopup
+        createNewNote={createNewNote}
+        closePopup={updatePopup}>
+      </AddImagePopup>
+    }
       <h1>My Pretty GF :)</h1>
-      <Sidebar></Sidebar>
+      <Sidebar updatePopup={updatePopup}></Sidebar>
       <div style={{display: "block",
                   float: "right",
                   width: "100%"}}>
@@ -111,21 +115,7 @@ function App() {
           }
         </Slider>
       </div>
-      <input
-        onChange={e => setFormData({ ...formData, 'name': e.target.value})}
-        placeholder="Note name"
-        value={formData.name}
-      />
-      <input
-        onChange={e => setFormData({ ...formData, 'description': e.target.value})}
-        placeholder="Note description"
-        value={formData.description}
-      />
-      <input
-      type="file"
-      onChange={onChange}
-      />
-      <button onClick={createNote}>Create Note</button>
+
       
     </div>
   );
@@ -146,5 +136,22 @@ function App() {
         ))
       }
       </div>
+
+
+            <input
+        onChange={e => setFormData({ ...formData, 'name': e.target.value})}
+        placeholder="Note name"
+        value={formData.name}
+      />
+      <input
+        onChange={e => setFormData({ ...formData, 'description': e.target.value})}
+        placeholder="Note description"
+        value={formData.description}
+      />
+      <input
+      type="file"
+      onChange={onChange}
+      />
+      <button onClick={createNote}>Create Note</button>
       */
 export default withAuthenticator(App);

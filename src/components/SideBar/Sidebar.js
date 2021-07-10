@@ -7,15 +7,15 @@ import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import AddImagePopup from '../AddImagePopup/AddImagePopup';
 const Sidebar = props => {
     const [isToggled, setIsToggled] = useState(false);
-    const [isPopupDisplayed, setIsPopupDisplayed] = useState(false);
 //onToggle={setIsToggled(!isToggled)} 
-const updatePopup = () => {
-        var popupState = !isPopupDisplayed;
-        setIsPopupDisplayed(popupState);
-    }
+
     const updateSidebar = () => {
         var sideBarState = !isToggled;
         setIsToggled(sideBarState);
+    }
+    const updatePopup = () => {
+        updateSidebar();
+        props.updatePopup();
     }
     return (
         <div>
@@ -41,13 +41,7 @@ const updatePopup = () => {
             </MenuItem>
             </Menu>
             </ProSidebar>
-        }
-
-          { isPopupDisplayed && 
-            <AddImagePopup content={"Test1"}>
-            </AddImagePopup>
-          }
-          
+        } 
           </div>
     )
 }
